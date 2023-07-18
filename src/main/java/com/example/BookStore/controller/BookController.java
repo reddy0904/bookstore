@@ -42,20 +42,20 @@ public class BookController {
         return "redirect:/available_books";
     }
 
-    @GetMapping("/my_books")
-    public String myBooks(Model model){
-        List<MyBooks> myBooks = myBookListService.getMyAllBooks();
-        model.addAttribute("book", myBooks);
-        return "myBooks";
-    }
+//    @GetMapping("/my_books")
+//    public String myBooks(Model model){
+//        List<MyBooks> myBooks = myBookListService.getMyAllBooks();
+//        model.addAttribute("book", myBooks);
+//        return "myBooks";
+//    }
 
-    @RequestMapping("/myList/{id}")
-    public String getMyList(@PathVariable("id") int Id){
-        Book book = bookService.getBookById(Id);
-        MyBooks myBook = new MyBooks(book.getId(), book.getName(), book.getAuthor(), book.getPrice());
-        myBookListService.save(myBook);
-        return "redirect:/my_books";
-    }
+//    @RequestMapping("/myList/{id}")
+//    public String getMyList(@PathVariable("id") int Id){
+//        Book book = bookService.getBookById(Id);
+//        MyBooks myBook = new MyBooks(book.getId(), book.getName(), book.getAuthor(), book.getPrice());
+//        myBookListService.save(myBook);
+//        return "redirect:/my_books";
+//    }
 
     @RequestMapping("/editBook/{id}")
     public String editBook(@PathVariable("id") int Id, Model model){
@@ -64,9 +64,9 @@ public class BookController {
         return "editBook";
     }
 
-    @RequestMapping("/deleteBook/{id}")
-    public String deleteBook(@PathVariable("id") int Id){
-        bookService.deleteById(Id);
-        return "redirect:/available_books";
-    }
+//    @RequestMapping("/deleteBook/{id}")
+//    public String deleteBook(@PathVariable("id") int Id){
+//        bookService.deleteById(Id);
+//        return "redirect:/available_books";
+//    }
 }

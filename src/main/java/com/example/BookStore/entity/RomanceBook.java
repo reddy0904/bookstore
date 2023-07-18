@@ -1,17 +1,12 @@
 package com.example.BookStore.entity;
 
 import javax.persistence.*;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "mybooks")
+@Table(name = "romancebook")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class MyBooks {
+public class RomanceBook {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -51,7 +46,7 @@ public class MyBooks {
 		this.price = price;
 	}
 
-	public MyBooks(int id, String name, String author, String price) {
+	public RomanceBook(int id, String name, String author, String price) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -59,7 +54,7 @@ public class MyBooks {
 		this.price = price;
 	}
 
-	public MyBooks() {
+	public RomanceBook() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
