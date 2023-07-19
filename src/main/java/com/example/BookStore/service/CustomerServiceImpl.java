@@ -25,5 +25,10 @@ public class CustomerServiceImpl implements CustomerService{
 		
 		return userRepo.existsByEmail(email);
 	}
+	@Override
+	public Customer_details getUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		return userRepo.findByEmail(username);
+	}
 	
 }

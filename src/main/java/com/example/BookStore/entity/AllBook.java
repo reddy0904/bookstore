@@ -4,15 +4,16 @@ import javax.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "romancebook")
+@Table(name = "allbook")
 @Data
-public class RomanceBook {
+public class AllBook {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private String author;
 	private String price;
+	private String type;
 
 	public int getId() {
 		return id;
@@ -42,19 +43,28 @@ public class RomanceBook {
 		return price;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public void setPrice(String price) {
 		this.price = price;
 	}
 
-	public RomanceBook(int id, String name, String author, String price) {
+	public AllBook(int id, String name, String author, String price, String type) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.author = author;
 		this.price = price;
+		this.type = type;
 	}
 
-	public RomanceBook() {
+	public AllBook() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

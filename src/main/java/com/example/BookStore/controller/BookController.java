@@ -2,9 +2,7 @@ package com.example.BookStore.controller;
 
 import com.example.BookStore.entity.Book;
 
-import com.example.BookStore.entity.MyBooks;
 import com.example.BookStore.service.BookService;
-import com.example.BookStore.service.MyBookListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +17,6 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @Autowired
-    private MyBookListService myBookListService;
 
     @GetMapping("/register_book")
     public String registerBook(){

@@ -5,23 +5,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.BookStore.entity.RomanceBook;
-import com.example.BookStore.repository.RomanceBookRepository;
-
+import com.example.BookStore.entity.AllBook;
+import com.example.BookStore.repository.AllBookRepository;
 @Service
-public class RomanceBookServiceImpl implements RomanceBookService {
-	 @Autowired
-	  private RomanceBookRepository romanceBookRepository;
-	@Override
-	public List<RomanceBook> getAllRomanceBooks() {
-		// TODO Auto-generated method stub
-		return romanceBookRepository.findAll();
-	}
+public class RomanceBookServiceImpl implements RomanceBookService{
+	
+	@Autowired 
+	private AllBookRepository allBookRepository;
 
-	@Override
-	public RomanceBook getRomanceBookById(int Id) {
-		// TODO Auto-generated method stub
-		return romanceBookRepository.findById(Id).get();
+	public List<AllBook> getAllBooks() {
+	    return allBookRepository.findByType("romance");
 	}
-
+	
+@Override
+public AllBook getAllBookById(int Id) {
+	return allBookRepository.findById(Id).get();
 }
+}
+

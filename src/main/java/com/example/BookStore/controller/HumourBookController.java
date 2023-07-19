@@ -14,15 +14,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.BookStore.entity.AllBook;
 import com.example.BookStore.entity.Cart;
 import com.example.BookStore.entity.Customer_details;
-import com.example.BookStore.service.ActionBookService;
 import com.example.BookStore.service.CartService;
 import com.example.BookStore.service.CustomerService;
+import com.example.BookStore.service.HumourBookService;
 
 @Controller
 @RequestMapping("/user")
-public class ActionBookController {
+public class HumourBookController {
 	@Autowired
-	private ActionBookService actionBookService;
+	private HumourBookService humourBookService;
 	
 	@Autowired
 	private CustomerService customerService;
@@ -30,23 +30,23 @@ public class ActionBookController {
 	@Autowired
 	private CartService cartService;
 	
-	@GetMapping("/actionbooks")
+	@GetMapping("/humourbooks")
 	public ModelAndView humourbooks() {
-		List<AllBook> list = actionBookService.getAllBooks();
+		List<AllBook> list = humourBookService.getAllBooks();
 		ModelAndView m = new ModelAndView();
-		m.setViewName("/user/actionbooks");
-		m.addObject("actionbook", list);
+		m.setViewName("/user/humourbooks");
+		m.addObject("humourbook", list);
 		return m;
 	}
-	@RequestMapping("/myactionList/{id}")
+	@RequestMapping("/myhumourList/{id}")
 	public String getMyList(@PathVariable("id") int Id) {
 		System.out.println(Id);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = authentication.getName();
         Customer_details loggedInUser = customerService.getUserByUsername(loggedInUsername);
-		AllBook book = actionBookService.getAllBookById(Id);
+		AllBook book = humourBookService.getAllBookById(Id);
 		Cart myBook = new Cart(book,loggedInUser,book.getName(),book.getAuthor(),book.getPrice());
 		cartService.save(myBook);
-		return "redirect:/user/actionbooks";
+		return "redirect:/user/humourbooks";
 	}
 }

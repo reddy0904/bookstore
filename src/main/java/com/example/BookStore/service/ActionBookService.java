@@ -2,11 +2,10 @@ package com.example.BookStore.service;
 
 import java.util.List;
 
-import com.example.BookStore.entity.ActionBook;
+import com.example.BookStore.entity.AllBook;
 
 public interface ActionBookService {
-
-	List<ActionBook> getAllActionBooks();
-	ActionBook getActionBookById(int Id);
+	public List<AllBook> getAllBooks();
+	public AllBook getAllBookById(int Id);
 }
 
