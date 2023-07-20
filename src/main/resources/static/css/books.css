@@ -13,6 +13,27 @@
 }
 .homebody {
 	background-image: linear-gradient(rgba(27, 27, 27, 0.75), rgba(27, 27, 27, 0.75)), url(/images/bookstore.jpeg);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.actionbody{
+	background-image: linear-gradient(rgba(27, 27, 27, 0.75), rgba(27, 27, 27, 0.75)), url(/images/bgimage.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.romancebody{
+	background-image: linear-gradient(rgba(27, 27, 27, 0.75), rgba(27, 27, 27, 0.75)), url(/images/bgimage1.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.fictionbody{
+	background-image: linear-gradient(rgba(27, 27, 27, 0.75), rgba(27, 27, 27, 0.75)), url(/images/bgimage2.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.mybookbody{
+	background-image: linear-gradient(rgba(27, 27, 27, 0.75), rgba(27, 27, 27, 0.75)), url(/images/bgimage3.jpg);
+	background-size: cover;
 }
 .navbar{
 	width: 100%;

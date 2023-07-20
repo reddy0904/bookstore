@@ -9,14 +9,14 @@
 		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="stylesheet" th:href="@{/css/books.css}">
 	<link rel="icon" type="image/x-icon" href="/images/h-icon.png">
-	<title>Book Store</title>
+	<title>Action Books</title>
 	<script src="https://kit.fontawesome.com/0faddc1af8.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="homebody">
+<body class="actionbody">
 
 	<nav class="navbar">
-	<img src="/images/eureka_logo.png" class="image">
+	<a href="/"><img src="/images/eureka_logo.png" class="image"></a>
 	<ul>
 			<li><a href="profile">My Profile</a></li>
 			<li><a href="availablebooks">Available books</a></li>
@@ -32,13 +32,13 @@
 					<th scope="col">S.No</th>
 					<th scope="col">Name</th>
 					<th scope="col">Author</th>
-					<th scope="col">Price</th>
+					<th scope="col">Price(Rs)</th>
 					<th scope="col">Action</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr style="color: white;" th:each="b : ${actionbook}">
-					<td th:text="${b.id}"></td>
+				<tr style="color: white;" th:each="b,iter: ${actionbook}">
+					<td th:text="${iter.index+1}"></td>
 					<td th:text="${b.name}"></td>
 					<td th:text="${b.author}"></td>
 					<td th:text="${b.price}"></td>

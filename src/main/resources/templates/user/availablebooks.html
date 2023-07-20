@@ -9,14 +9,14 @@
 		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="stylesheet" th:href="@{/css/availablebooks.css}">
 	<link rel="icon" type="image/x-icon" href="/images/h-icon.png">
-	<title>Book Store</title>
+	<title>Available Books</title>
 	<script src="https://kit.fontawesome.com/0faddc1af8.js" crossorigin="anonymous"></script>
 </head>
 
 <body class="homebody">
 
 	<nav class="navbar">
-	<img src="/images/eureka_logo.png" class="image">
+	<a href="/"><img src="/images/eureka_logo.png" class="image"></a>
 	<ul>
 			<li><a href="profile">My Profile</a></li>
 			<li><a href="availablebooks">Available books</a></li>
@@ -27,21 +27,20 @@
 
 	<div class="container">
 		<div class="divcat">
-			<a href="humourbooks"><img id="categ" src="/images/humor_books.jpg"/></a>
-		</div>
-		<!--<div class="divcat">
-			<a href="fiction_books"><img id="categ" src="/images/fiction.jpg"/></a>
-			<p></p>
-			<center>FICTION</center>
-		</div>-->
-		<div class="divcat">
-			<a href="actionbooks"><img id="categ" src="/images/action_books.jpg"/></a>
+			<a href="humourbooks"><img id="categ" src="/images/smile.jpg"/></a>
+			<center style="padding-left: 80px;padding-top: 5px; color: white;">HUMOUR</center>
 		</div>
 		<div class="divcat">
-			<a href="romancebooks"><img id="categ" src="/images/romance_books.jpg"/></a>
+			<a href="actionbooks"><img id="categ" src="/images/action.jpg"/></a>
+			<center style="padding-left: 80px;padding-top: 5px; color: white;">ACTION</center>
 		</div>
 		<div class="divcat">
-			<a href="fictionbooks"><img id="categ" src="/images/thriller_books.jpg"/></a>
+			<a href="romancebooks"><img id="categ" src="/images/romantic.jpg"/></a>
+			<center style="padding-left: 80px;padding-top: 5px; color: white;">ROMANCE</center>
+		</div>
+		<div class="divcat">
+			<a href="fictionbooks"><img id="categ" src="/images/fictional.jpg"/></a>
+			<center style="padding-left: 80px;padding-top: 5px; color: white;">FICTION</center>
 		</div>
 	</div>
 

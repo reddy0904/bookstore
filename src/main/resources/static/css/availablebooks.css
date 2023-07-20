@@ -13,6 +13,7 @@
 }
 .homebody {
 	background-image: linear-gradient(rgba(27, 27, 27, 0.75), rgba(27, 27, 27, 0.75)), url(/images/bookstore.jpeg);
+	background-size: cover;
 }
 .navbar{
 	width: 100%;

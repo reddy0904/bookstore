@@ -1,5 +1,6 @@
 .homebody {
-	background-image: linear-gradient(rgba(27, 27, 27, 0.75), rgba(27, 27, 27, 0.75)), url(/images/bookstore.jpeg);
+	background-image: linear-gradient(rgba(27, 27, 27, 0.75), rgba(27, 27, 27, 0.75)), url(/images/bgimage5.jpg);
+	background-size: cover;
 }
 
 .navbar{
@@ -46,7 +47,7 @@
 	
 }
 .image{
-	width: 120px;
+	width: 70px;
 	cursor: pointer;
 	float:center;
 }

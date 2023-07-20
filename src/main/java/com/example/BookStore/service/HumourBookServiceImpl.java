@@ -27,8 +27,6 @@
 //
 //}
 
-
-
 package com.example.BookStore.service;
 
 import java.util.List;
@@ -38,22 +36,21 @@ import org.springframework.stereotype.Service;
 
 import com.example.BookStore.entity.AllBook;
 import com.example.BookStore.repository.AllBookRepository;
+
 @Service
-public class HumourBookServiceImpl implements HumourBookService{
-	
-	@Autowired 
+public class HumourBookServiceImpl implements HumourBookService {
+
+	@Autowired
 	private AllBookRepository allBookRepository;
 
+	@Override
 	public List<AllBook> getAllBooks() {
-	    return allBookRepository.findByType("humour");
+		return allBookRepository.findByType("homour");
 	}
-	
-@Override
-public AllBook getAllBookById(int Id) {
-	return allBookRepository.findById(Id).get();
-}
 
-
-
+	@Override
+	public AllBook getAllBookById(int Id) {
+		return allBookRepository.findById(Id).get();
+	}
 
 }
