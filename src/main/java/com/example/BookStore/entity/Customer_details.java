@@ -35,14 +35,6 @@ public class Customer_details {
 		this.id = id;
 	}
 
-	public String getFullnaame() {
-		return fullname;
-	}
-
-	public void setFullName(String fullname) {
-		this.fullname = fullname;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -96,6 +88,14 @@ public class Customer_details {
 
 	public Customer_details() {
 		super();
+	}
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 	
 

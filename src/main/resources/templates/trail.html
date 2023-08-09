@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/register.css}">
+	<link rel="icon" type="image/x-icon" href="/images/h-icon.png">
+	<title>Register</title>
+	
+	
+	 <style>
+        /* CSS to style the books grid */
+        .books-container {
+          display: flex;
+            flex-wrap: wrap;
+            /*align-items: center;
+            justify-content: center;*/
+            padding-left: 125px;
+        }
+        .book-card {
+			width: 400px;
+			height: 400px;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            background-color: white;
+
+        }
+        .sow{
+			width: 33%;
+                                          
+		}
+	.counter {
+    width: 150px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+	}
+.counter input {
+	display: inline-block;
+    width: 50px;
+    border: 0;
+    line-height: 20px;
+    text-align: center;
+    background: black;
+    color: white;
+    appearance: none;
+    outline: 0;
+    padding-top:0px;
+}
+.counter span {
+    display: inline-block;
+    font-size: 25px;
+    padding: 0 10px;
+    margin: auto;
+    cursor: pointer;
+    color:black;
+    user-select: none;
+
+}
+    </style>
+</head>
+
+<body class="registerbody" style="align-items: center;">
+
+	<nav class="navbar">
+	<a href="/"><img src="/images/eureka_logo.png" class="image"></a>
+	<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="#">About</a></li>
+			<li><a href="#">Contact Us</a></li>
+			
+		</ul>
+	</nav>
+	<table class="table table-boredered">
+	<tbody>
+					<tr style="color: white;"th:each="product : ${actionbook}">
+						<td><img alt="" th:src="*{'data:image/jpeg;base64,'+{product.image}}" style="width: 200px;height: 200px;"></td>
+						<td>[[*{product.name}]] </td>
+						<td>[[*{product.price}]]</td>
+						<td><a th:href="@{/deleteProd/{id}(id=${product.id})}"
+							class="btn btn-primary mt-4">Add to Cart</a></td>
+					</tr>
+				</tbody>
+				
+	</table>
+	
+	
+	
+	<table style="border-spacing: 0px;
+        table-layout: fixed;
+        margin-left: auto;
+        margin-right: auto;
+        width: 1000px;">
+        <tr style="color: white;border-bottom: 10px white;"th:each="product : ${actionbook}">
+						<td style="text-align: center;word-break: break-all;align-items: center;"><img alt="" th:src="*{'data:image/jpeg;base64,'+{product.image}}" style="width: 200px;height: 200px;"></td>
+						<td style="text-align: center;">[[*{product.name}]] </td>
+						<td style="text-align: center;"><p style="display:inline-block ;">&#8377</p>[[*{product.price}]]</td>
+						<td style="text-align: center;"><div class="counter">
+  <span class="down" onClick='decreaseCount(event, this)'>-</span>
+  <input type="text" value="1">
+  <span class="up" onClick='increaseCount(event, this)'>+</span>
+</div></td>
+<td style="text-align: center;"><a th:href="@{/deleteProd/{id}(id=${product.id})}"
+							class="btn btn-primary">Remove</a></td>
+					</tr>
+</table>
+<div style="text-align: center;"><button type="submit" class="btn btn-success col-md-13-f4">Place Order</button></div>
+
+
+
+
+<div class="books-container">
+        <!-- Loop through the list of books and display each book in a card -->
+        <div th:each="book : ${actionbook}" class="book-card">
+			<img alt="" th:src="*{'data:image/jpeg;base64,'+{book.image}}" style="width: 200px;height: 200px; padding-bottom: 10px;">
+            <h4 style="padding-bottom: 10px;"th:text="${book.name}">Book Title</h4>
+            <p style="display: inline;"><b>Author:</b></p>
+            <p style="display: inline;" th:text="${book.author}">Author</p>
+            <div>
+            <p style="display: inline;">&#8377</p>
+            <p style="display: inline;font-size: larger;"th:text="${book.price} ">Price</p>
+            </div>
+            
+            <div>
+            <div class="counter">
+			  <span class="down" onClick='decreaseCount(event, this)'>-</span>
+			  <input type="text" value="1">
+			  <span class="up" onClick='increaseCount(event, this)'>+</span>
+			</div>
+              <a style="display: inline;" th:href="@{/user/myactionList/{id}(id=${book.id})}" class="btn btn-primary mt-4 p-1 mx-auto">Add to Cart</a>
+            </div>
+        	</div>
+		</div>
+<script th:src="@{js/quantity_of_books.js}"></script>
+</body>

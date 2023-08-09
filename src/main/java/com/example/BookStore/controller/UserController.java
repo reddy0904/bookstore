@@ -4,15 +4,20 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.BookStore.entity.Cart;
+import com.example.BookStore.entity.Customer_details;
+import com.example.BookStore.repository.CartRepository;
 import com.example.BookStore.service.CartService;
-import com.example.BookStore.service.MyBookListService;
+import com.example.BookStore.service.CustomerService;
 
 @Controller
 @RequestMapping("/user")
@@ -22,7 +27,10 @@ public class UserController {
 	private CartService cartService;
 	
 	@Autowired
-	private MyBookListService myBookListService;
+	private CustomerService customerService;
+	
+	@Autowired
+	private CartRepository cartRepo;
 
 	@GetMapping("/availablebooks")
 	public String availablebooks() {
@@ -33,13 +41,42 @@ public class UserController {
     public ModelAndView getAllBooks(){
         List<Cart> list = cartService.getBooksForLoggedInUser();
         ModelAndView m = new ModelAndView();
+        
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String loggedInUsername = authentication.getName();
+        Customer_details loggedInUser = customerService.getUserByUsername(loggedInUsername);
+        boolean recordsPresent = cartService.isCartEmpty(loggedInUser.getId());
         m.setViewName("/user/mybooks");
         m.addObject("cart", list);
+        m.addObject("recordsPresent",recordsPresent);
         return m;
 	}
 	@RequestMapping("/deleteBook/{id}")
     public String deleteBook(@PathVariable("id") int Id){
-        myBookListService.deleteById(Id);
+        cartService.deleteById(Id);
         return "redirect:/user/mybooks";
     }
+	@RequestMapping("/profile")
+	public String profile()
+	{
+		return "/user/profile";
+	}
+	
+	@RequestMapping("/incrementQuantity/{cartItemId}")
+    public String incrementQuantity(@PathVariable int cartItemId) {
+        Cart cartItem = cartRepo.findById(cartItemId);
+        if (cartItem != null) {
+            cartService.incrementQuantity(cartItem);
+        }
+        return "redirect:/user/mybooks"; // Redirect to cart page
+    }
+
+    @RequestMapping("/decrementQuantity/{cartItemId}")
+    public String decrementQuantity(@PathVariable int cartItemId) {
+        Cart cartItem = cartRepo.findById(cartItemId);
+        if (cartItem != null) {
+            cartService.decrementQuantity(cartItem);
+        }
+        return "redirect:/user/mybooks";
+}
 }
