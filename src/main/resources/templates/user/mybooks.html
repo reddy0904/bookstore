@@ -25,29 +25,6 @@
 		</ul>
 	</nav>
 	<h1 class="container text-center text-white">My Books</h1>
-	<!--		<div class="container my-5 col-md-6">
-		<table class="table table-striped table-hover">
-			<thead style="background-color: white;">
-				<tr>
-					<th scope="col">S.No</th>
-					<th scope="col">Name</th>
-					<th scope="col">Author</th>
-					<th scope="col">Price(Rs)</th>
-					<th scope="col">Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr style="color: white;" th:each="b,iter : ${cart}">
-					<td th:text="${iter.index+1}"></td>
-					<td th:text="${b.name}"></td>
-					<td th:text="${b.author}"></td>
-					<td th:text="${b.price}"></td>
-					<td><a class="btn btn-secondary btn-sm" th:href="@{/user/deleteBook/{id}(id=${b.id})}">Remove Book</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>-->
 
 
 	<table style="
@@ -64,12 +41,15 @@
 			</td>
 			<td style="text-align: center;">[[*{product.allBook.name}]] </td>
 			<td style="text-align: center;">
-				<p style="display:inline-block ;">&#8377</p>[[*{product.allBook.price}]]
+				<p style="display:inline-block ;">&#8377</p><p style="display:inline-block ;">[[*{product.allBook.price}]]</p>
 			</td>
 			<td style="text-align: center;">
 				<a  style="height: 3px; width: 3px;" th:href ="@{/user/decrementQuantity/{id}(id=${product.id})}" class="btn btn-light d-inline">-</a>
 				<div class="d-inline mx-2">[[${product.quantity}]]</div>
     		<a th:href="@{/user/incrementQuantity/{id}(id=${product.id})}" class="btn btn-light d-inline">+</a>
+    		<br>
+    		<label style="display:inline-block ;">Subtotal:</label>
+    		<p style="padding-top: 10px; display:inline-block ;">&#8377</p><p style="display:inline-block ;">[[*{product.allBook.price*product.quantity}]]</p>
 			</td>
 			<td style="text-align: center;"><a th:href="@{/user/deleteBook/{id}(id=${product.id})}"
 					class="btn btn-secondary">Remove</a></td>
@@ -79,8 +59,8 @@
 		<h1 class="text-danger">Sorry!No Books are added to the Cart</h1>
 	</div>
 	<div style="text-align: center;" th:unless="${recordsPresent}">
-		<div style="text-align: center;padding-top: 40px;"><button type="submit"
-				class="btn btn-success col-md-13-f4">Place Order</button></div>
+		<div style="text-align: center;padding-top: 40px; padding-bottom: 40px;"><a th:href="@{/user/orders}"
+				class="btn btn-success col-md-13-f4">Check out</a></div>
 	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

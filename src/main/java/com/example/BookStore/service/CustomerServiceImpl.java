@@ -30,5 +30,30 @@ public class CustomerServiceImpl implements CustomerService{
 		// TODO Auto-generated method stub
 		return userRepo.findByEmail(username);
 	}
+	@Override
+	public Customer_details getUserById(int id) {
+		
+		// TODO Auto-generated method stub
+		return userRepo.findById(id);
+	}
+	@Override
+	public boolean checkPassword(int id,String ps) {
+		// TODO Auto-generated method stub
+		Customer_details d=userRepo.findById(id);
+		if(passwordEncode.matches(ps,d.getPassword())) {
+			return true;
+		}
+		return false;
+	}
+	@Override
+	public void updateProfile(int id,String name, String email, String phoneno) {
+		// TODO Auto-generated method stub
+		Customer_details details =userRepo.findById(id);
+		details.setFullname(name);
+		details.setEmail(email);
+		details.setPhoneno(phoneno);
+		userRepo.save(details);
+		
+	}
 	
 }

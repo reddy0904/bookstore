@@ -25,11 +25,15 @@ public class AdminController {
 	    public String add(@RequestParam("image") MultipartFile image,
 	    		@RequestParam("name") String name,
 	    		@RequestParam("author") String author,
-	    		@RequestParam("price") String price,
+	    		@RequestParam("price") int price,
 	    		@RequestParam("type") String type)
 	    {
 	    	addnewbook.saveProductToDB(image, name,author, price,type);
-	    	return "redirect:/admin/addnewbook";
+	    	return "admin/addnewbook";
 	    }
-	
-}
+	 @GetMapping("/")
+		public String home()
+		{
+			return "admin/adminhome";
+		}
+} 

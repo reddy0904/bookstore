@@ -25,6 +25,10 @@
 		</ul>
 	</nav>
 	<h1 class="container text-center text-white">Romance Books</h1>
+	<th:block th:if="${session.msg}">
+				<p class="text-center fs-1 mt-1 text-danger">[[${session.msg}]]</p>
+				<div th:text="${@serviceHelper.removeMessageFromSession()}"></div>
+			</th:block>
 			<div class="books-container">
         <!-- Loop through the list of books and display each book in a card -->
         <div th:each="book : ${romancebook}" class="book-card">
@@ -36,19 +40,7 @@
             <p style="display: inline;">&#8377</p>
             <p style="display: inline;font-size: larger;"th:text="${book.price} ">Price</p>
             </div>
-            
-			<table style="align-self: center;margin-left: 40px;">
-				<td>
-            <div class="counter1">
-			  <span class="down" onClick='decreaseCount(event, this)'>-</span>
-			  <input type="text" value="1">
-			  <span class="up" onClick='increaseCount(event, this)'>+</span>
-			</div>
-			</td>
-			<td>
-              <a style="display: inline;" th:href="@{/user/myromanceList/{id}(id=${book.id})}" class="btn btn-primary mt-4 p-1 mx-auto">Add to Cart</a>
-            </td>
-            </table>
+              <a style="display: inline;" th:href="@{/user/myromanceList/{id}(id=${book.id})}" class="btn btn-success mt-4 p-1 mx-auto">Add to Cart</a>
         	</div>
 		</div>
 

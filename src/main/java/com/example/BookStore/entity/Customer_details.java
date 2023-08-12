@@ -21,11 +21,9 @@ public class Customer_details {
 	
 	private String phoneno;
 	
-	private String address;
-	
-	private String pincode;
-	
 	private String password;
+	
+	private String role="ROLE_USER";
 
 	public int getId() {
 		return id;
@@ -51,21 +49,7 @@ public class Customer_details {
 		this.phoneno = phoneno;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getPincode() {
-		return pincode;
-	}
-
-	public void setPincode(String pincode) {
-		this.pincode = pincode;
-	}
+	
 
 	public String getPassword() {
 		return password;
@@ -75,14 +59,11 @@ public class Customer_details {
 		this.password = password;
 	}
 
-	public Customer_details(String fullname, String email, String phoneno, String address, String pincode,
-			String password) {
+	public Customer_details(String fullname, String email, String phoneno,String password) {
 		super();
 		this.fullname = fullname;
 		this.email = email;
 		this.phoneno = phoneno;
-		this.address = address;
-		this.pincode = pincode;
 		this.password = password;
 	}
 
@@ -96,6 +77,14 @@ public class Customer_details {
 
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 
