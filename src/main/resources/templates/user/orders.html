@@ -28,10 +28,21 @@
 	<div class="cart-box-main">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-6 col-lg-6 mb-3">
+				<div class="col-sm-6 col-lg-6 mb-3">23		
 					<div class="d-flex justify-content-between">
 						<h2 class="title-left text-white"><b>Shipping Address</b></h2>
-						<a class="btn btn-secondary p-0 text-white mb-3" href="">change address</a>
+						<button id="changeAddressButton" class="btn btn-primary mt-3">Change Address</button>
+            <div class="popup-content">
+                <h2>Select an Address</h2>
+                <ul>
+                    <li th:each="address : ${savedAddresses}">
+                        <input type="radio" name="selectedAddress" th:value="${address.id}">
+                        <span th:text="${address.area + ', ' + address.city + ', ' + address.state + ' ' + address.pincode}"></span>
+                    </li>
+                </ul>
+                <button id="selectAddressButton" class="btn btn-primary">Select Address</button>
+            </div>
+        </div>
 					</div>
 					<div class="checkout-address bg-light rounded p-2">
 						<div class="mb-3">
@@ -120,6 +131,31 @@
 
 	</div>
 	</div>
+	
+	<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const changeAddressButton = document.getElementById("changeAddressButton");
+            const addressPopup = document.getElementById("addressPopup");
+            const selectAddressButton = document.getElementById("selectAddressButton");
+
+            changeAddressButton.addEventListener("click", function () {
+                addressPopup.style.display = "block";
+            });
+
+            selectAddressButton.addEventListener("click", function () {
+                const selectedAddressId = document.querySelector("input[name='selectedAddress']:checked").value;
+                // You can perform further actions with the selected address ID
+                alert("Selected Address ID: " + selectedAddressId);
+                addressPopup.style.display = "none";
+            });
+
+            window.addEventListener("click", function (event) {
+                if (event.target === addressPopup) {
+                    addressPopup.style.display = "none";
+                }
+            });
+        });
+    </script>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
