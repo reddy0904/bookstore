@@ -9,4 +9,5 @@ import com.example.BookStore.entity.Address;
 @Repository
 public interface AddressRepository  extends JpaRepository<Address, Integer>{
  public List<Address> findAddressByUserId(int id);
+ public Address findById(int id);
 }

@@ -7,15 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.BookStore.entity.Address;
@@ -38,17 +35,14 @@ public class UserController {
 	private CustomerService customerService;
 	
 	@Autowired
+	private AddressService addressService;
+	
+	@Autowired
 	private CartRepository cartRepo;
 	
 	@Autowired
 	private CustomerRepository userRepo;
 	
-	@Autowired
-	private AddressService addressService;
-	
-	@Autowired
-	private BCryptPasswordEncoder passwordEncode;
-
 
 	@GetMapping("/availablebooks")
 	public String availablebooks() {
@@ -120,18 +114,6 @@ public class UserController {
         return "redirect:/user/mybooks";
     }
     
-    @RequestMapping("/orders")
-    public String orders(Model m)
-    {
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String loggedInUsername = authentication.getName();
-        Customer_details loggedInUser = customerService.getUserByUsername(loggedInUsername);
-        Customer_details cd=customerService.getUserById(loggedInUser.getId());
-    	m.addAttribute("customer",cd);
-    	List<Address> ad=addressService.allSavedAddress(loggedInUser.getId());
-    	m.addAttribute("savedAddresses",ad);
-    	List<Cart> list = cartService.getBooksForLoggedInUser();
-    	m.addAttribute("item",list);
-    	return "/user/orders";
-    }
+    
+    
 }

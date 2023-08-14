@@ -41,10 +41,6 @@
 				<p style="display: inline;">&#8377</p>
 				<p style="display: inline; font-size: larger;" th:text="${book.price} ">Price</p>
 			</div>
-			<th:block th:if="${session.msg}">
-				<p class="text-center fs-7 mt-1 text-danger">[[${session.msg}]]</p>
-				<div th:text="${@serviceHelper.removeMessageFromSession()}"></div>
-			</th:block>
 			<a style="display: inline;" id="link" th:href="@{/user/myfictionList/{id}(id=${book.id})}"
 				class="btn btn-success mt-4 p-1 mx-auto addToCartLink">Add to Cart</a>
 		</div>

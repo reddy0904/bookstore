@@ -28,6 +28,7 @@ public class Address {
 	private String area;
 	private String landmark;
 	private String city;
+	private String district;
 	private String state;
 	private String country;
 
@@ -111,8 +112,16 @@ public class Address {
 		this.fullname = fullname;
 	}
 
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+
 	public Address(Customer_details user, String fullname, String phonenumber, String pincode, String area,
-			String landmark, String city, String state, String country) {
+			String landmark, String city, String district, String state, String country) {
 		super();
 		this.user = user;
 		this.fullname = fullname;
@@ -121,6 +130,7 @@ public class Address {
 		this.area = area;
 		this.landmark = landmark;
 		this.city = city;
+		this.district = district;
 		this.state = state;
 		this.country = country;
 	}
