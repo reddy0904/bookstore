@@ -49,7 +49,8 @@ public class OrdersServiceImpl implements OrdersService{
 		List<Cart> c= cartRepo.findByUserId(loggedInUser.getId());
 		for(Cart i:c) {
 			
-			OrderDetails d=new OrderDetails(loggedInUser,order,i.getAllBook(),i.getQuantity(),i.getAllBook().getPrice()*i.getQuantity());
+			OrderDetails d=new OrderDetails(loggedInUser,order,i.getAllBook().getName(),i.getAllBook().getAuthor(),i.getAllBook().getPrice(),
+					i.getAllBook().getType(),i.getAllBook().getImage(),i.getQuantity(),i.getAllBook().getPrice()*i.getQuantity());
 			orderDetailsRepo.save(d);
 			cartRepo.deleteById(i.getId());
 			

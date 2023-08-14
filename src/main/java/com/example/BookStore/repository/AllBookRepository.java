@@ -10,4 +10,5 @@ public interface AllBookRepository  extends JpaRepository<AllBook, Integer>  {
 
 
 	public List<AllBook> findByType(String type);
+	public AllBook findById(int id);
 }

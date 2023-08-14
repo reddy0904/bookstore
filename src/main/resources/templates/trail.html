@@ -1,4 +1,4 @@
-<!doctype html>
+<!--<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.com">
 
 <head>
@@ -117,7 +117,7 @@
 
 
 <div class="books-container">
-        <!-- Loop through the list of books and display each book in a card -->
+         Loop through the list of books and display each book in a card 
         <div th:each="book : ${actionbook}" class="book-card">
 			<img alt="" th:src="*{'data:image/jpeg;base64,'+{book.image}}" style="width: 200px;height: 200px; padding-bottom: 10px;">
             <h4 style="padding-bottom: 10px;"th:text="${book.name}">Book Title</h4>
@@ -139,4 +139,4 @@
         	</div>
 		</div>
 <script th:src="@{js/quantity_of_books.js}"></script>
-</body>
+</body>-->

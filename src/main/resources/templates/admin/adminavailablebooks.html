@@ -24,42 +24,42 @@
 
 		</ul>
 	</nav>
-	<div class="container">
-		<form id="form" class="form" th:action="add" enctype="multipart/form-data" method="post" consumes = { MediaType.MULTIPART_FORM_DATA_VALUE }>
-			<h4 class="text-center text-white my-4">Add New Book</h4>
-			<div class="form-control">
-				<label for="name">Name of Book</label>
-				<input type="text" class="form-control" name="name" id="name" required>
-			</div>
-			<div class="form-control">
-				<label for="author">Author Name</label>
-				<input type="text" class="form-control" name="author" id="author" required>
-			</div>
-			<div class="form-control">
-				<label for="price" class="form-label text-white">Price of Book</label>
-				<input type="text" class="form-control" name="price" id="price" required>
-			</div>
-			<div class="form-control">
-				<label for="image" class="form-label text-white">Select Book Cover</label>
-				<input type="file" class="form-control" name="image" id="image" required>
-			</div>
-			<div class="form-control">
-				<label for="category" class="form-label text-white">Select Book Type</label>
-				<select class="selectt" name="type" id="type" required>
-					<option value="" disabled selected>Select..</option>
-					<option value="humour">Humour</option>
-					<option value="action">Action</option>
-					<option value="romance">Romance</option>
-					<option value="fiction">Fiction</option>
-				</select>
-			</div>
-			<div>
-				<center><button type="submit" class="btn btn-primary">Add Book</button></center>
-			</div>
-			
-		</form>
-	</div>
-	
+	<h1 class='text-center text-white mb-3'>All Books</h1>
+	<h5 class='text-center text-white mb-2'>Total Number of Books Available: <font class="text-danger">[[*{count}]]</font></h5>
+	<table style="
+		border-collapse: collapse;
+        table-layout: fixed;
+        margin-left: auto;
+        margin-right: auto;
+        width: 1200px;">
+        <thead class="p-3">
+				<tr style="background-color: white;text-align: center;">
+					<th scope="col">Cover Page</th>
+					<th scope="col">Book Name</th>
+					<th scope="col">Author Name</th>
+					<th scope="col">Book Type</th>
+					<th scope="col">Price</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+		<tbody>
+		<tr style="color: white;border-top: 1pt solid white;border-bottom: 1pt solid white;padding-bottom: 30px;"
+			th:each="product : ${allbooks}">
+
+			<td style="text-align: center;word-break: break-all;padding-bottom: 10px;padding-top: 10px;"><img alt=""
+					th:src="*{'data:image/jpeg;base64,'+{product.image}}" style="width: 200px;height: 200px;">
+			</td>
+			<td style="text-align: center;">[[*{product.name}]] </td>
+			<td style="text-align: center;">[[*{product.author}]] </td>
+			<td style="text-align: center;">[[*{product.type}]] </td>	
+			<td style="text-align: center;" th:text="'&#8377'+${product.price}"></td>
+			<td style="text-align: center;">
+				<a th:href="@{/admin/editbook/{id}(id=${product.id})}" class="btn btn-secondary">Edit</a>
+				<a th:href="@{/admin/deleteBook/{id}(id=${product.id})}" class="btn btn-secondary">Delete</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
