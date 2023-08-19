@@ -19,5 +19,33 @@ public class AddressServiceImpl implements AddressService{
 		return addressRepo.findAddressByUserId(id);
 	}
 	
+	@Override
+	public void updateAddress(int id, String fullname, String phoneno, String pincode, String area, String landmark,
+			String city, String district, String state, String country) {
+		// TODO Auto-generated method stub
+		Address ad = addressRepo.findById(id);
+		ad.setFullname(fullname);
+		ad.setPhonenumber(phoneno);
+		ad.setPincode(pincode);
+		ad.setArea(area);
+		ad.setLandmark(landmark);
+		ad.setCity(city);
+		ad.setDistrict(district);
+		ad.setState(state);
+		ad.setCountry(country);
+		addressRepo.save(ad);
+		
+	}
 
+	@Override
+	public void deleteAddressById(int id) {
+		// TODO Auto-generated method stub\
+		addressRepo.deleteById(id);
+		
+	}
+	@Override
+	public Address getAddressById(int id) {
+		// TODO Auto-generated method stub
+		return addressRepo.findById(id);
+	}
 }

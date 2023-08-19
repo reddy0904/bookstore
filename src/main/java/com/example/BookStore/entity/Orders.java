@@ -22,9 +22,7 @@ public class Orders {
 	@JoinColumn(name = "user_id")
 	private Customer_details user;
 	
-	@ManyToOne
-	@JoinColumn(name = "address_id")
-	private Address address;
+	private String address;
 	
 	private String status;
 	private String producttotal;
@@ -38,12 +36,6 @@ public class Orders {
 	}
 	public void setUser(Customer_details user) {
 		this.user = user;
-	}
-	public Address getAddress() {
-		return address;
-	}
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 	public String getStatus() {
 		return status;
@@ -94,7 +86,7 @@ public class Orders {
 	public void setPaymentmethod(String paymentmethod) {
 		this.paymentmethod = paymentmethod;
 	}
-	public Orders(Customer_details user, Address address, String status, String producttotal, String discount,
+	public Orders(Customer_details user, String address, String status, String producttotal, String discount,
 			String shippingcost, String grandtotal, LocalDateTime orderDateTime, String paymentmethod) {
 		super();
 		this.user = user;
@@ -106,6 +98,12 @@ public class Orders {
 		this.grandtotal = grandtotal;
 		this.orderDateTime = orderDateTime;
 		this.paymentmethod = paymentmethod;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public Orders() {
 		super();

@@ -18,10 +18,15 @@
 	<nav class="navbar">
 		<a href="/"><img src="/images/eureka_logo.png" class="image"></a>
 		<ul>
-			<li><a href="profile">My Profile</a></li>
 			<li><a href="availablebooks">Available books</a></li>
 			<li><a href="mybooks">My Books</a></li>
-
+			<li><button class="dropbtn">Settings <i class="fa fa-caret-down"></i></button>
+			<div class="dropdown-content">
+					<a href="profile">Profile</a>
+					<a href="myorders">My Orders</a>
+					<a href="/">Sign Out</a>
+				</div>
+			</li>
 		</ul>
 	</nav>
 	<form action="/user/orderplaced" method="post">
@@ -35,11 +40,12 @@
 						<div class="checkout-address bg-light rounded p-2">
 							<div th:each="address : ${savedAddresses}">
 								<input style="padding-bottom: 45px;" type="radio" th:name="selectedAddress"
-									th:value="${address.id}">
-								<b><span th:text="${address.fullname + ', &#x1F4DE' + address.phonenumber}"></span></b>
+									th:value="${address.id}" required>
+								<b><span th:text="${address.fullname}"></span>
+								   <span  class="fa fa-phone text-primary"></span>
+								   <span th:text="${address.phonenumber}"></span></b>
 								<br>
-								<span
-									th:text="${address.area + ', ' +address.landmark + ', ' + address.city + ', ' + address.district + ' district, ' + address.state + ', '+ address.country + ' ' + address.pincode}"></span>
+								<span th:text="${address.area + ', ' +address.landmark + ', ' + address.city + ', ' + address.district + ' district, ' + address.state + ', '+ address.country + ' ' + address.pincode}"></span>
 							</div>
 							<a th:href="@{/user/profile}" class="btn btn-secondary mt-2">Add Address</a>
 							<th:block th:if="${session.msg}">
@@ -67,8 +73,8 @@
 								</div>
 								<div class="rounded p-2 bg-light">
 									<div class="media mb-2 border-bottom" th:each="book : ${item}">
-										<div class="media-body"><a th:text="${book.allBook.name}"> </a>
-											<div class="small text-muted">Price: &#8377 [[${book.allBook.price}]] <span
+										<div class="media-body"><div class="fw-bold" th:text="${book.allBook.name}"> </div>
+											<div>Price: &#8377 [[${book.allBook.price}]] <span
 													class="mx-2">|</span> Qty: [[${book.quantity}]] <span
 													class="mx-2">|</span> Subtotal:&#8377
 												[[${book.allBook.price*book.quantity}]]

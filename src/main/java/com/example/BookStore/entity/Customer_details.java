@@ -18,10 +18,16 @@ public class Customer_details {
 	private String fullname;
 
 	private String email;
-	
+
 	private String phoneno;
-	
+
 	private String password;
+
+	private String gender;
+
+	private boolean enabled;
+
+	private String verificationCode;
 	
 	private String role="ROLE_USER";
 
@@ -31,6 +37,14 @@ public class Customer_details {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 
 	public String getEmail() {
@@ -49,8 +63,6 @@ public class Customer_details {
 		this.phoneno = phoneno;
 	}
 
-	
-
 	public String getPassword() {
 		return password;
 	}
@@ -59,24 +71,28 @@ public class Customer_details {
 		this.password = password;
 	}
 
-	public Customer_details(String fullname, String email, String phoneno,String password) {
-		super();
-		this.fullname = fullname;
-		this.email = email;
-		this.phoneno = phoneno;
-		this.password = password;
+	public String getGender() {
+		return gender;
 	}
 
-	public Customer_details() {
-		super();
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
-	public String getFullname() {
-		return fullname;
+	public boolean getEnabled() {
+		return enabled;
 	}
 
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public String getVerificationCode() {
+		return verificationCode;
+	}
+
+	public void setVerificationCode(String verificationCode) {
+		this.verificationCode = verificationCode;
 	}
 
 	public String getRole() {
@@ -86,8 +102,24 @@ public class Customer_details {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
 
-	
+	public Customer_details(String fullname, String email, String phoneno,
+			String password, String gender, boolean enabled, String verificationCode,String role) {
+		super();
+		this.fullname = fullname;
+		this.email = email;
+		this.phoneno = phoneno;
+		this.password = password;
+		this.gender = gender;
+		this.setEnabled(enabled);
+		this.verificationCode = verificationCode;
+		this.role=role;
+		
+	}
+
+	public Customer_details() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 }

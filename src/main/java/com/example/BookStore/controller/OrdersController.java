@@ -59,6 +59,7 @@ public class OrdersController {
 		else {
 			int a=id.intValue();
 			ordersService.saveOrder(a,totalprice,discount, shippingcost, grandtotal,paymentMethod);
+			ordersService.sendOrderPlacedMail(customerService.getDetails());
 	        return "/user/demo";
 		}
 	}
