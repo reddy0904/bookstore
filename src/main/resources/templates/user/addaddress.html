@@ -9,6 +9,7 @@
 		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="stylesheet" th:href="@{/css/addaddress.css}">
 	<link rel="icon" type="image/x-icon" href="/images/iicon.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 	<title>Register</title>
 </head>
 
@@ -20,8 +21,8 @@
 			<li><a href="mybooks">My Books</a></li>
 			<li><button class="dropbtn">Settings <i class="fa fa-caret-down"></i></button>
 			<div class="dropdown-content">
-					<a href="profile">Profile</a>
-					<a href="myorders">My Orders</a>
+					<a href="/user/profile">Profile</a>
+					<a href="/user/myorders">My Orders</a>
 					<a href="/">Sign Out</a>
 				</div>
 			</li>
@@ -37,39 +38,48 @@
 		</th:block>
         <div class="form-control">
           <label for="fullname">Full Name</label>
-          <input type="text" id="fullname" placeholder="Enter fullname" name="fullname" required />
+          <input type="text" id="fullname" placeholder="Enter fullname" name="fullname" />
+          	<small>Error Message</small>
         </div>
         <div class="form-control">
           <label for="phoneno">Phone Number</label>
-          <input type="text" id="phoneno" placeholder="Enter Phone Number" name="phoneno" required/>
+          <input type="text" id="phoneno" placeholder="Enter Phone Number" name="phoneno" />
+          	<small>Error Message</small>
         </div>
         <div class="form-control">
-          <label for="pincode">Pin Coode</label>
-          <input type="text" id="pincode" placeholder="Enter Pin Code " name="pincode" required/>
+          <label for="pincode">Pin Code</label>
+          <input type="text" id="pincode" placeholder="Enter Pin Code " name="pincode" />
+          	<small>Error Message</small>
         </div>
         <div class="form-control">
           <label for="area">Flat No., Street, Area</label>
-          <input type="text" id="area" placeholder="Enter Flat No., Street, Area" name="area" required/>
+          <input type="text" id="area" placeholder="Enter Flat No., Street, Area" name="area" />
+          	<small>Error Message</small>
         </div>
         <div class="form-control">
           <label for="landmark">Land Mark</label>
-          <input type="text" id="landmark" placeholder="Enter Landmark" name="landmark" required/>
+          <input type="text" id="landmark" placeholder="Enter Landmark" name="landmark" />
+          	<small>Error Message</small>
         </div>
         <div class="form-control">
           <label for="city">City</label>
-          <input type="text" id="city" placeholder="Enter city" name="city" required/>
+          <input type="text" id="city" placeholder="Enter city" name="city" />
+          	<small>Error Message</small>
         </div>
         <div class="form-control">
           <label for="district">District</label>
-          <input type="text" id="district" placeholder="Enter District" name="district" required/>
+          <input type="text" id="district" placeholder="Enter District" name="district" />
+          	<small>Error Message</small>
         </div>     
         <div class="form-control">
           <label for="state">State</label>
-          <input type="text" id="state" placeholder="Enter State" name="state" required />
+          <input type="text" id="state" placeholder="Enter State" name="state"  />
+          	<small>Error Message</small>
         </div>
         <div class="form-control">
           <label for="country">Country</label>
-          <input type="text" id="country" placeholder="Enter Country" name="country" required/>
+          <input type="text" id="country" placeholder="Enter Country" name="country" />
+          	<small>Error Message</small>
         </div>
         <button>Submit</button>
       </form>
@@ -83,6 +93,96 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
 		integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
 		crossorigin="anonymous"></script>
+	<script>
+		const form = document.getElementById('form');
+		const fullname = document.getElementById('fullname');
+		const phonenumber = document.getElementById('phoneno');
+		const pincode = document.getElementById('pincode');
+		const area = document.getElementById('area');
+		const landmark = document.getElementById('landmark');
+		const city= document.getElementById('city');
+		const district = document.getElementById('district');
+		const state = document.getElementById('state');
+		const country = document.getElementById('country');
+
+
+
+
+		// show input error message
+		function showError(input, message) {
+			const formControl = input.parentElement;
+			formControl.className = 'form-control error';
+			const small = formControl.querySelector('small');
+			small.innerText = message;
+		}
+
+		// show success message
+		function showSuccess(input) {
+			formControl = input.parentElement;
+			formControl.className = 'form-control success';
+		}
+
+		function checkphonenumber(input) {
+			var phoneno = /^\d{10}$/;
+			if (phoneno.test(input.value.trim())) {
+				showSuccess(input);
+			}
+			else {
+				showError(input, 'phone number is not valid');
+			}
+		}
+
+
+
+		//check required fields
+		function checkRequired(inputArr) {
+			inputArr.forEach(function (input) {
+				if (input.value.trim() === '') {
+					showError(input, `${getFieldName(input)} is required`);
+				} else {
+					showSuccess(input);
+				}
+			});
+		}
+
+		//check input lenght
+		function checkLength(input, min, max) {
+			if (input.value.length < min) {
+				showError(input, `${getFieldName(input)} must be at least ${min} characters`);
+			} else if (input.value.length > max) {
+				showError(input, `${getFieldName(input)} must be less than ${max} characters`);
+			} else {
+				showSuccess(input);
+			}
+		}
+
+		// check passwords match
+
+		function checkPasswordsMatch(input1, input2) {
+			if (input1.value !== input2.value) {
+				showError(input2, 'Passwords do not match');
+			}
+		}
+
+		// Get fieldname
+		function getFieldName(input) {
+			return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+		}
+
+		// Event listeners
+		form.addEventListener('submit', function (e) {
+			e.preventDefault();
+
+			checkRequired([fullname, phonenumber,pincode,area,landmark,city,state,district,country]);
+			checkLength(fullname, 3, 25);
+			checkphonenumber(phonenumber);
+			const errorMessages = form.querySelectorAll('.error');
+			if (errorMessages.length === 0) {
+				// If no error messages, submit the form and redirect to another page
+				form.submit();
+			}
+		});</script>
+	</script>
 </body>
 
 </html>

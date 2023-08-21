@@ -3,11 +3,11 @@ package com.example.BookStore.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +24,6 @@ import com.example.BookStore.entity.OrderDetails;
 import com.example.BookStore.entity.Orders;
 import com.example.BookStore.repository.AddressRepository;
 import com.example.BookStore.repository.CartRepository;
-import com.example.BookStore.repository.CustomerRepository;
 import com.example.BookStore.service.AddressService;
 import com.example.BookStore.service.CartService;
 import com.example.BookStore.service.CustomerService;
@@ -36,19 +35,19 @@ public class UserController {
 
 	@Autowired
 	private CartService cartService;
-	
+
 	@Autowired
 	private CustomerService customerService;
-	
+
 	@Autowired
 	private AddressService addressService;
-	
+
 	@Autowired
 	private CartRepository cartRepo;
-	
+
 	@Autowired
 	private AddressRepository addressRepo;
-	
+
 	@Autowired
 	private OrdersService ordersService;
 
@@ -58,108 +57,109 @@ public class UserController {
 	}
 
 	@GetMapping("/mybooks")
-    public ModelAndView getAllBooks(){
-        List<Cart> list = cartService.getBooksForLoggedInUser();
-        ModelAndView m = new ModelAndView();
-        
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String loggedInUsername = authentication.getName();
-        Customer_details loggedInUser = customerService.getUserByUsername(loggedInUsername);
-        boolean recordsPresent = cartService.isCartEmpty(loggedInUser.getId());
-        m.setViewName("/user/mybooks");
-        m.addObject("cart", list);
-        m.addObject("recordsPresent",recordsPresent);
-        return m;
-	}
-	@RequestMapping("/deleteBook/{id}")
-    public String deleteBook(@PathVariable("id") int Id){
-        cartService.deleteById(Id);
-        return "redirect:/user/mybooks";
-    }
-	@GetMapping("/profile")
-	public String profile(Model m)
-	{
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String loggedInUsername = authentication.getName();
-        Customer_details loggedInUser = customerService.getUserByUsername(loggedInUsername);
-        Customer_details cd=customerService.getUserById(loggedInUser.getId());
-        
-    	m.addAttribute("customer_name",cd.getFullname());
-    	m.addAttribute("customer_email",cd.getEmail());
-    	m.addAttribute("customer_phoneno",cd.getPhoneno());
-    	List<Address> ad=addressService.allSavedAddress(loggedInUser.getId());
-    	m.addAttribute("savedAddresses",ad);
-		return "/user/profile";
-	}
-	@PostMapping("/profile")
-	public String updateprofile(String fullname,String email,String phoneno,String password) 
-	{
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String loggedInUsername = authentication.getName();
-        Customer_details loggedInUser = customerService.getUserByUsername(loggedInUsername);
-		if(customerService.checkPassword(loggedInUser.getId(),password)) {
-			customerService.updateProfile(loggedInUser.getId(), fullname, email, phoneno);
-		}
-		else {
-			System.out.println("Byeeee");
-		}
-		return "redirect:/user/profile";
-	}
-	
-	@RequestMapping("/incrementQuantity/{cartItemId}")
-    public String incrementQuantity(@PathVariable int cartItemId) {
-        Cart cartItem = cartRepo.findById(cartItemId);
-        if (cartItem != null) {
-            cartService.incrementQuantity(cartItem);
-        }
-        return "redirect:/user/mybooks"; // Redirect to cart page
-    }
+	public ModelAndView getAllBooks() {
+		List<Cart> list = cartService.getBooksForLoggedInUser();
+		ModelAndView m = new ModelAndView();
 
-    @RequestMapping("/decrementQuantity/{cartItemId}")
-    public String decrementQuantity(@PathVariable int cartItemId) {
-        Cart cartItem = cartRepo.findById(cartItemId);
-        if (cartItem != null) {
-            cartService.decrementQuantity(cartItem);
-        }
-        return "redirect:/user/mybooks";
-    }
-    
-    @GetMapping("/myorders")
-    public String myorders(Model m)
-    {
-        List<Orders>  ord= ordersService.getallOrdersOfUser();
-        List<List<OrderDetails>> vowels = new ArrayList<>();
-        for(Orders i:ord){
-        	List<OrderDetails> orddetails =ordersService.getallUserdetailsOfAnUser(i.getId());
-        	vowels.add(orddetails);
-        }
-    	m.addAttribute("orders",ord);
-    	m.addAttribute("orderdetails",vowels);
-    	return "user/myorders";
-    }
-    
-    @GetMapping("/addaddress")
-	public String addAddress() {
-		return "user/addaddress";
-	}
-	
-	@PostMapping("/addressadd")
-	public String addressAdd(@RequestParam("fullname")String fullname, @RequestParam("phoneno") String phoneno, 
-			@RequestParam("pincode")String pincode, @RequestParam("area") String area,@RequestParam("landmark") String landmark,
-			@RequestParam("city")String city, @RequestParam("district") String district, @RequestParam("state") String state, 
-			@RequestParam("country")String country) {
-		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String loggedInUsername = authentication.getName();
 		Customer_details loggedInUser = customerService.getUserByUsername(loggedInUsername);
-		Address ad = new Address(loggedInUser,fullname,phoneno,pincode,area,landmark,city,district,state,country);
-		addressRepo.save(ad);
-		
+		boolean recordsPresent = cartService.isCartEmpty(loggedInUser.getId());
+		m.setViewName("/user/mybooks");
+		m.addObject("cart", list);
+		m.addObject("recordsPresent", recordsPresent);
+		return m;
+	}
+
+	@RequestMapping("/deleteBook/{id}")
+	public String deleteBook(@PathVariable("id") int Id) {
+		cartService.deleteById(Id);
+		return "redirect:/user/mybooks";
+	}
+
+	@GetMapping("/profile")
+	public String profile(Model m) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String loggedInUsername = authentication.getName();
+		Customer_details loggedInUser = customerService.getUserByUsername(loggedInUsername);
+		Customer_details cd = customerService.getUserById(loggedInUser.getId());
+
+		m.addAttribute("customer_name", cd.getFullname());
+		m.addAttribute("customer_email", cd.getEmail());
+		m.addAttribute("customer_phoneno", cd.getPhoneno());
+		List<Address> ad = addressService.allSavedAddress(loggedInUser.getId());
+		m.addAttribute("savedAddresses", ad);
+		return "/user/profile";
+	}
+
+	@RequestMapping("/profile")
+	public String updateprofile(String fullname, String email, String phoneno, String password, HttpSession session) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String loggedInUsername = authentication.getName();
+		Customer_details loggedInUser = customerService.getUserByUsername(loggedInUsername);
+		if (customerService.checkPassword(loggedInUser.getId(), password)) {
+			customerService.updateProfile(loggedInUser.getId(), fullname, email, phoneno);
+		} else {
+			session.setAttribute("msg","Sorry! Wrong Password");
+		}
+		return "redirect:/user/profile";
+	}
+
+	@RequestMapping("/incrementQuantity/{cartItemId}")
+	public String incrementQuantity(@PathVariable int cartItemId) {
+		Cart cartItem = cartRepo.findById(cartItemId);
+		if (cartItem != null) {
+			cartService.incrementQuantity(cartItem);
+		}
+		return "redirect:/user/mybooks"; // Redirect to cart page
+	}
+
+	@RequestMapping("/decrementQuantity/{cartItemId}")
+	public String decrementQuantity(@PathVariable int cartItemId) {
+		Cart cartItem = cartRepo.findById(cartItemId);
+		if (cartItem != null) {
+			cartService.decrementQuantity(cartItem);
+		}
+		return "redirect:/user/mybooks";
+	}
+
+	@GetMapping("/myorders")
+	public String myorders(Model m) {
+		List<Orders> ord = ordersService.getallOrdersOfUser();
+		List<List<OrderDetails>> vowels = new ArrayList<>();
+		for (Orders i : ord) {
+			List<OrderDetails> orddetails = ordersService.getallUserdetailsOfAnUser(i.getId());
+			vowels.add(orddetails);
+		}
+		m.addAttribute("orders", ord);
+		m.addAttribute("orderdetails", vowels);
+		return "user/myorders";
+	}
+
+	@GetMapping("/addaddress")
+	public String addAddress() {
 		return "user/addaddress";
 	}
-	
+
+	@PostMapping("/addressadd")
+	public String addressAdd(@RequestParam("fullname") String fullname, @RequestParam("phoneno") String phoneno,
+			@RequestParam("pincode") String pincode, @RequestParam("area") String area,
+			@RequestParam("landmark") String landmark, @RequestParam("city") String city,
+			@RequestParam("district") String district, @RequestParam("state") String state,
+			@RequestParam("country") String country) {
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String loggedInUsername = authentication.getName();
+		Customer_details loggedInUser = customerService.getUserByUsername(loggedInUsername);
+		Address ad = new Address(loggedInUser, fullname, phoneno, pincode, area, landmark, city, district, state,
+				country);
+		addressRepo.save(ad);
+
+		return "user/addaddress";
+	}
+
 	@GetMapping("/editaddress/{id}")
-	public String editaddress(@PathVariable("id") int Id, Model m){
+	public String editaddress(@PathVariable("id") int Id, Model m) {
 		Address ad = addressService.getAddressById(Id);
 		m.addAttribute("addressid", Id);
 		m.addAttribute("addressname", ad.getFullname());
@@ -173,27 +173,30 @@ public class UserController {
 		m.addAttribute("addresscountry", ad.getCountry());
 		return "/user/editaddress";
 	}
-	
+
 	@PostMapping("/editaddress")
-	public String updateaddress(int id, String fullname, String phoneno, String pincode,
-			String area, String landmark, String city, String district, String state, String country) {
+	public String updateaddress(int id, String fullname, String phoneno, String pincode, String area, String landmark,
+			String city, String district, String state, String country) {
 		addressService.updateAddress(id, fullname, phoneno, pincode, area, landmark, city, district, state, country);
-		return "redirect:/user/editaddress/"+id;
+		return "redirect:/user/editaddress/" + id;
 	}
-	
+
 	@RequestMapping("/deleteAddress/{id}")
 	public String deleteAddress(@PathVariable("id") int Id) {
 		addressService.deleteAddressById(Id);
 		return "redirect:/user/profile";
 	}
-	
+
 	@PostMapping("/updatepassword")
-	public String updatePassword(String currentpassword, String newpassword) {
+	public String updatePassword(String currentpassword, String newpassword,HttpSession session) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String loggedInUsername = authentication.getName();
 		Customer_details loggedInUser = customerService.getUserByUsername(loggedInUsername);
-		if(customerService.checkPassword(loggedInUser.getId(), currentpassword)) {
+		if (customerService.checkPassword(loggedInUser.getId(), currentpassword)) {
 			customerService.changePassword(loggedInUser.getId(), newpassword);
+		}
+		else {
+			session.setAttribute("msg1","Sorry! Wrong Password");
 		}
 		return "redirect:/user/profile";
 	}

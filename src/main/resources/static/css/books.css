@@ -138,10 +138,10 @@
     flex-wrap: wrap;
     /*align-items: center;
     justify-content: center;*/
-    padding-left: 125px;
+    padding-left: 200px;
 }
 .book-card {
-	width: 400px;
+	width: 300px;
 	height: 400px;
     margin: 10px;
     padding: 10px;

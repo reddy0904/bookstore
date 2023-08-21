@@ -7,70 +7,91 @@
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-	<link rel="stylesheet" th:href="@{/css/register.css}">
+	<link rel="stylesheet" th:href="@{/css/addaddress.css}">
 	<link rel="icon" type="image/x-icon" href="/images/iicon.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 	<title>Register</title>
 </head>
 
-<body class="registerbody">
+<body class="homebody">
 
 	<nav class="navbar">
-	<a href="/"><img src="/images/eureka_logo.png" class="image"></a>
-	<ul>
-			<li><a href="/">Home</a></li>
-			<li><a href="#">About</a></li>
-			<li><a href="#">Contact Us</a></li>
-			
+		<a href="/"><img src="/images/eureka_logo.png" class="image"></a>
+		<ul>
+			<li><a href="availablebooks">Available books</a></li>
+			<li><a href="mybooks">My Books</a></li>
+			<li><button class="dropbtn">Settings <i class="fa fa-caret-down"></i></button>
+				<div class="dropdown-content">
+					<a href="/user/profile">Profile</a>
+					<a href="/user/myorders">My Orders</a>
+					<a href="/">Sign Out</a>
+				</div>
+			</li>
 		</ul>
 	</nav>
 	<div class="container mb-4">
-      <form id="form" class="form" action="/user/editaddress" method="post">
-        <h2>Edit Address</h2>
-        <div class="container">
+		<form id="form" class="form" action="/user/editaddress" method="post">
+			<h2>Edit Address</h2>
+			<div class="container">
 				<th:block th:if="${session.msg}">
-		<p class="text-center fs-4 text-danger">[[${session.msg}]]</p>
-	<div th:text="${@serviceHelper.removeMessageFromSession()}"></div>
-		</th:block>
-		<input hidden id="id" th:name="id" th:value="${addressid}">
-        <div class="form-control">
-          <label for="fullname">Full Name</label>
-          <input type="text" id="fullname" placeholder="Enter fullname" name="fullname" th:value="${addressname}" required />
-        </div>
-        <div class="form-control">
-          <label for="phoneno">Phone Number</label>
-          <input type="text" id="phoneno" placeholder="Enter Phone Number" name="phoneno" th:value="${addressphone}" required/>
-        </div>
-        <div class="form-control">
-          <label for="pincode">Pin Coode</label>
-          <input type="text" id="pincode" placeholder="Enter Pin Code " name="pincode" th:value="${addresspin}" required/>
-        </div>
-        <div class="form-control">
-          <label for="area">Flat No., Street, Area</label>
-          <input type="text" id="area" placeholder="Enter Flat No., Street, Area" name="area" th:value="${addressarea}" required/>
-        </div>
-        <div class="form-control">
-          <label for="landmark">Land Mark</label>
-          <input type="text" id="landmark" placeholder="Enter Landmark" name="landmark" th:value="${addresslandmark}" required/>
-        </div>
-        <div class="form-control">
-          <label for="city">City</label>
-          <input type="text" id="city" placeholder="Enter city" name="city" th:value="${addresscity}" required/>
-        </div>
-        <div class="form-control">
-          <label for="district">District</label>
-          <input type="text" id="district" placeholder="Enter District" name="district" th:value="${addressphone}" required/>
-        </div>     
-        <div class="form-control">
-          <label for="state">State</label>
-          <input type="text" id="state" placeholder="Enter State" name="state" th:value="${addressstate}" required />
-        </div>
-        <div class="form-control">
-          <label for="country">Country</label>
-          <input type="text" id="country" placeholder="Enter Country" name="country" th:value="${addresscountry}" required/>
-        </div>
-        <button>Submit</button>
-      </form>
-    </div>
+					<p class="text-center fs-4 text-danger">[[${session.msg}]]</p>
+					<div th:text="${@serviceHelper.removeMessageFromSession()}"></div>
+				</th:block>
+				<input hidden id="id" th:name="id" th:value="${addressid}">
+				<div class="form-control">
+					<label for="fullname">Full Name</label>
+					<input type="text" id="fullname" placeholder="Enter fullname" name="fullname"
+						th:value="${addressname}" />
+					<small>Error Message</small>
+				</div>
+				<div class="form-control">
+					<label for="phoneno">Phone Number</label>
+					<input type="text" id="phoneno" placeholder="Enter Phone Number" name="phoneno"
+						th:value="${addressphone}"/>
+						<small>Error Message</small>
+				</div>
+				<div class="form-control">
+					<label for="pincode">Pin Code</label>
+					<input type="text" id="pincode" placeholder="Enter Pin Code " name="pincode"
+						th:value="${addresspin}" />
+					<small>Error Message</small>
+				</div>
+				<div class="form-control">
+					<label for="area">Flat No., Street, Area</label>
+					<input type="text" id="area" placeholder="Enter Flat No., Street, Area" name="area"
+						th:value="${addressarea}"  />
+					<small>Error Message</small>
+				</div>
+				<div class="form-control">
+					<label for="landmark">Land Mark</label>
+					<input type="text" id="landmark" placeholder="Enter Landmark" name="landmark"
+						th:value="${addresslandmark}" />
+					<small>Error Message</small>
+				</div>
+				<div class="form-control">
+					<label for="city">City</label>
+					<input type="text" id="city" placeholder="Enter city" name="city" th:value="${addresscity}"/>
+					<small>Error Message</small>
+				</div>
+				<div class="form-control">
+					<label for="district">District</label>
+					<input type="text" id="district" placeholder="Enter District" name="district"
+						th:value="${addressdistrict}" />
+					<small>Error Message</small>
+				</div>
+				<div class="form-control">
+					<label for="state">State</label>
+					<input type="text" id="state" placeholder="Enter State" name="state" th:value="${addressstate}"/>
+					<small>Error Message</small>
+				</div>
+				<div class="form-control">
+					<label for="country">Country</label>
+					<input type="text" id="country" placeholder="Enter Country" name="country" th:value="${addresscountry}" />
+					<small>Error Message</small>
+				</div>
+				<button>Submit</button>
+		</form>
+	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
@@ -80,6 +101,94 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
 		integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
 		crossorigin="anonymous"></script>
+	<script>const form = document.getElementById('form');
+		const fullname = document.getElementById('fullname');
+		const phonenumber = document.getElementById('phoneno');
+		const pincode = document.getElementById('pincode');
+		const area = document.getElementById('area');
+		const landmark = document.getElementById('landmark');
+		const city= document.getElementById('city');
+		const district = document.getElementById('district');
+		const state = document.getElementById('state');
+		const country = document.getElementById('country');
+
+
+
+
+		// show input error message
+		function showError(input, message) {
+			const formControl = input.parentElement;
+			formControl.className = 'form-control error';
+			const small = formControl.querySelector('small');
+			small.innerText = message;
+		}
+
+		// show success message
+		function showSuccess(input) {
+			formControl = input.parentElement;
+			formControl.className = 'form-control success';
+		}
+
+		function checkphonenumber(input) {
+			var phoneno = /^\d{10}$/;
+			if (phoneno.test(input.value.trim())) {
+				showSuccess(input);
+			}
+			else {
+				showError(input, 'phone number is not valid');
+			}
+		}
+
+
+
+		//check required fields
+		function checkRequired(inputArr) {
+			inputArr.forEach(function (input) {
+				if (input.value.trim() === '') {
+					showError(input, `${getFieldName(input)} is required`);
+				} else {
+					showSuccess(input);
+				}
+			});
+		}
+
+		//check input lenght
+		function checkLength(input, min, max) {
+			if (input.value.length < min) {
+				showError(input, `${getFieldName(input)} must be at least ${min} characters`);
+			} else if (input.value.length > max) {
+				showError(input, `${getFieldName(input)} must be less than ${max} characters`);
+			} else {
+				showSuccess(input);
+			}
+		}
+
+		// check passwords match
+
+		function checkPasswordsMatch(input1, input2) {
+			if (input1.value !== input2.value) {
+				showError(input2, 'Passwords do not match');
+			}
+		}
+
+		// Get fieldname
+		function getFieldName(input) {
+			return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+		}
+
+		// Event listeners
+		form.addEventListener('submit', function (e) {
+			e.preventDefault();
+
+			checkRequired([fullname, phonenumber,pincode,area,landmark,city,state,district,country]);
+			checkLength(fullname, 3, 25);
+			checkphonenumber(phonenumber);
+			const errorMessages = form.querySelectorAll('.error');
+			if (errorMessages.length === 0) {
+				// If no error messages, submit the form and redirect to another page
+				form.submit();
+			}
+		});</script>
 </body>
 
 </html>

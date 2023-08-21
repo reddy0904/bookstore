@@ -14,14 +14,13 @@
 </head>
 
 <body class="registerbody" style="align-items: center;">
-
 	<nav class="navbar">
 		<a href="/"><img src="/images/eureka_logo.png" class="image"></a>
 		<ul>
 			<li><a href="availablebooks">Available books</a></li>
 			<li><a href="mybooks">My Books</a></li>
 			<li><button class="dropbtn">Settings <i class="fa fa-caret-down"></i></button>
-			<div class="dropdown-content">
+				<div class="dropdown-content">
 					<a href="profile">Profile</a>
 					<a href="myorders">My Orders</a>
 					<a href="/">Sign Out</a>
@@ -29,52 +28,66 @@
 			</li>
 		</ul>
 	</nav>
-	
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 offset-md-2">
-				<form>
+				<form method="post" action="/user/profile">
 					<h2 class="title-left text-white">User Profile</h2>
 					<div class="mb-3">
 						<label for="username" class="form-label text-white">Full Name</label>
 						<input type="text" class="form-control" id="fullname" placeholder="Enter fullname"
-							th:name="fullname" th:value="${customer_name}" required/>
-
+							th:name="fullname" th:value="${customer_name}" required />
 					</div>
 					<div class="mb-3">
 						<label for="email" class="form-label text-white">Email</label>
 						<input type="text" class="form-control" id="email" placeholder="Enter email" th:name="email"
-							th:value="${customer_email}" readonly/>
-
+							th:value="${customer_email}" readonly />
 					</div>
 					<div class="mb-3">
 						<label for="phonenumber" class="form-label text-white">Phone Number</label>
 						<input type="text" class="form-control" id="phonenumber" placeholder="Enter phone number"
-							th:name="phoneno" th:value="${customer_phoneno}" required/>
-
+							th:name="phoneno" th:value="${customer_phoneno}" minlength="10" maxlength="10" required />
 					</div>
 					<div class="mb-3">
 						<label for="password" class="form-label text-white">Password</label>
 						<input type="password" class="form-control" id="password" name="password"
-							placeholder="Enter password" required/>
-
+							placeholder="Enter password" required />
 					</div>
 					<button type="submit" class="btn btn-primary">Submit</button>
+					<span>	<th:block th:if="${session.msg}">
+						<small class="text-center fs-5 mt-1 text-danger">[[${session.msg}]]</small>
+						<div th:text="${@serviceHelper.removeMessageFromSession()}"></div>
+					</th:block>
+					</span>
+					
 				</form>
 				<form id="change-password-form" class="mt-4 mb-4" method="post" action="updatepassword">
 					<h2 class="title-left text-white">Change Password</h2>
-					<div class="mb-3">
+					<div class="form-control1">
 						<label for="current-password" class="form-label text-white">Current Password:</label>
-						<input type="password" class="form-control" id="currentpassword" th:name="currentpassword">
-
+						<br>
+						<input type="password" id="currentpassword" th:name="currentpassword">
+						<small>Error Message</small>
+					</div>
+					<div class="form-control1">
 						<label for="new-password" class="form-label text-white">New Password:</label>
-						<input type="password" class="form-control" id="newpassword" th:name="newpassword">
-
+						<br>
+						<input type="password" id="newpassword" th:name="newpassword">
+						<small>Error Message</small>
+					</div>
+					<div class="mb-3 form-control1">
 						<label for="confirm-new-password" class="form-label text-white">Confirm New Password:</label>
-						<input type="password" class="form-control" id="confirmnewpassword"
-							th:name="confirmnewpassword">
+						<br>
+						<input type="password" id="confirmnewpassword" th:name="confirmnewpassword">
+						<small>Error Message</small>
 					</div>
 					<button type="submit" class="btn btn-primary ">Change Password</button>
+					<span>	<th:block th:if="${session.msg1}">
+						<small class="text-center fs-5 mt-1 text-danger">[[${session.msg1}]]</small>
+						<div th:text="${@serviceHelper.removeMessageFromSession2()}"></div>
+					</th:block>
+					</span>
 				</form>
 			</div>
 			<div class="col-md-4 offset-md-1">
@@ -84,21 +97,25 @@
 					<div class="mb-3">
 						<b><label for="new-address" class="form-label text-white">Saved Address:</label></b>
 						<div th:each="address : ${savedAddresses}">
-						<div class="mb-4 bg-light rounded p-2">
-							<b><span th:text="${address.fullname}"></span>
-								   <span  class="fa fa-phone text-primary"></span>
-								   <span th:text="${address.phonenumber}"></span></b>
+							<div class="mb-4 bg-light rounded p-2">
+								<b><span th:text="${address.fullname}"></span>
+									<span class="fa fa-phone text-primary"></span>
+									<span th:text="${address.phonenumber}"></span></b>
 								<br>
-								<span th:text="${address.area + ', ' +address.landmark + ', ' + address.city + ', ' + address.district + ' district, ' + address.state + ', '+ address.country + ' ' + address.pincode}"></span>
-							<p class="text-end mt-2">
-								<a th:href="@{/user/editaddress/{id}(id=${address.id})}" class="btn btn-primary">Edit</a>
-								<a th:href="@{/user/deleteAddress/{id}(id=${address.id})}" class="btn btn-danger">Delete</a>
-							</p>
-						</div>
+								<span
+									th:text="${address.area + ', ' +address.landmark + ', ' + address.city + ', ' + address.district + ' district, ' + address.state + ', '+ address.country + ' ' + address.pincode}"></span>
+								<p class="text-end mt-2">
+									<a th:href="@{/user/editaddress/{id}(id=${address.id})}"
+										class="btn btn-primary">Edit</a>
+									<a th:href="@{/user/deleteAddress/{id}(id=${address.id})}"
+										class="btn btn-danger">Delete</a>
+								</p>
+							</div>
 
+						</div>
 					</div>
-					</div>
-				<a class="btn btn-success" href="addaddress">Add Address</a>				</form>
+					<a class="btn btn-success" href="addaddress">Add Address</a>
+				</form>
 				<ul class="address-list" id="address-container">
 					<!-- Addresses will be displayed here -->
 				</ul>
@@ -108,14 +125,6 @@
 
 	<!-- Include Bootstrap JS (optional) -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
-
-
-
-
-
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
@@ -125,11 +134,62 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
 		integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
 		crossorigin="anonymous"></script>
+	<script>
+		const form = document.getElementById('change-password-form');
+		const currentpassword = document.getElementById("currentpassword");
+		const password = document.getElementById('newpassword');
+		const password2 = document.getElementById('confirmnewpassword');
+		function showError(input, message) {
+			const formControl = input.parentElement;
+			formControl.className = 'form-control1 error';
+			const small = formControl.querySelector('small');
+			small.innerText = message;
+		}
+		function showSuccess(input) {
+			formControl = input.parentElement;
+			formControl.className = 'form-control1 success';
+		}
+		function checkPasswordsMatch(input1, input2) {
+			if (input1.value !== input2.value) {
+				showError(input2, 'Passwords do not match');
+			}
+		}
 
-
-
-
-
+		// Get fieldname
+		function getFieldName(input) {
+			return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+		}
+		function checkRequired(inputArr) {
+			inputArr.forEach(function (input) {
+				if (input.value.trim() === '') {
+					showError(input, `${getFieldName(input)} is required`);
+				} else {
+					showSuccess(input);
+				}
+			});
+		}
+		function checkLength(input, min, max) {
+			if (input.value.length < min) {
+				showError(input, `${getFieldName(input)} must be at least ${min} characters`);
+			} else if (input.value.length > max) {
+				showError(input, `${getFieldName(input)} must be less than ${max} characters`);
+			} else {
+				showSuccess(input);
+			}
+		}
+		// Event listeners
+		form.addEventListener('submit', function (e) {
+			e.preventDefault();
+			checkRequired([currentpassword, password, password2]);
+			checkPasswordsMatch(password, password2);
+			checkLength(password, 6, 25);
+			const errorMessages = form.querySelectorAll('.error');
+			if (errorMessages.length === 0) {
+				// If no error messages, submit the form and redirect to another page
+				form.submit();
+			}
+		});
+	</script>
 </body>
 
 </html>
